@@ -4,12 +4,16 @@
 
 ## VulnBank adalah aplikasi perbankan yang sengaja dibuat rentan, yang digunakan untuk berlatih uji penetrasi aplikasi web.
 
-## Scope
+## Ruang Lingkup Pengujian (Scope)
 
-- Authentication
-- Authorization
-- Business Logic
-- File Upload
+Pengujian keamanan dilakukan secara terbatas pada modul otentikasi dan manajemen akun dengan detail aset sebagai berikut:
+
+- **Domain Utama:** `https://vulnbank.org`
+- **Modul & Fitur Teruji:**
+  - Fungsi Pendaftaran Akun (`/register`)
+  - Fungsi Masuk Log (`/login`)
+  - Fungsi Riwayat Transaksi (`/transactions/*`)
+  - Fungsi Transfer Saldo (`/dashboard#transfer*`)
 
 ---
 
