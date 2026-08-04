@@ -1,119 +1,33 @@
-# VB-001 - JWT Privilege Escalation
+# [Nama Kerentanan, misal: SQL Injection / IDOR / XSS] di [Nama Fitur/Endpoint]
+
+- **Vulnerability Type:** CWE-347 Improre Verification of JWT Signature.
+- **Target / Platform:** [vulnbank org]
+- **Severity / CVSS:** [Critical]
+- **Endpoint:** `[GET/POST] /api/v1/path/to/endpoint`
 
 ---
 
-## Summary
+## 📝 Deskripsi (Description)
 
-User yang telah melakukan proses autentikasi dapat meningkatkan hak akses menjadi admin dengan memodiikasi JWT.
+[Tuliskan 1-2 paragraf yang menjelaskan kerentanan ini. Apa yang salah dari sistemnya? Misalnya: "Aplikasi menerima input pada parameter `id` tanpa melakukan sanitasi atau *prepared statements*, sehingga memungkinkan injeksi perintah SQL ke dalam database backend."]
 
----
+## 🎯 Dampak (Impact)
 
-## Severity
-
-Critical
+[Jelaskan skenario terburuk jika celah ini dieksploitasi oleh *attacker*. Fokus pada kerugian teknis atau bisnis. Misalnya: "Attacker dapat membaca, mengubah, atau menghapus seluruh tabel di dalam database, berujung pada *Takeover* akun atau kebocoran PII (Personally Identifiable Information)."]
 
 ---
 
-## CVSS
+## 🛠️ Langkah Reproduksi (Proof of Concept)
 
-9.8
+Berikut adalah langkah-langkah untuk mereproduksi kerentanan:
 
----
+1. [Langkah 1: misal, Login ke aplikasi menggunakan akun *low-privilege*.]
+2. [Langkah 2: misal, Intercept *request* pada saat mengubah data profil menggunakan Burp Suite.]
+3. [Langkah 3: misal, Ubah nilai parameter `user_id` menjadi `admin_id` atau tambahkan *payload* `' OR 1=1--`]
+4. [Langkah 4: misal, Kirim *request* dan perhatikan bahwa respons server membocorkan data admin.]
 
-## CWE
+**Raw HTTP Request (Exploit):**
 
-CWE-347
-
----
-
-## OWASP
-
-API2: Broken Authentication
-
----
-
-## Affected Components
-
-- Login
-- Admin Panel
-- Admin Dashboard
-
----
-
-## Prerequisites
-
-- Valid user account
-
----
-
-## Discovery
-
-Bagaimana kamu menemukannya.
-
-Apa observasi awalmu.
-
----
-
-## Root Cause
-
-Kenapa bug ini terjadi.
-
-Jangan bahas payload dulu.
-
----
-
-## Proof of Concept
-
-Step-by-step.
-
----
-
-## Evidence
-
-Screenshot
-
-Request
-
-Response
-
-JWT
-
----
-
-## Impact
-
-Apa yang bisa dilakukan attacker.
-
----
-
-## Risk
-
-Business impact.
-
----
-
-## Remediation
-
-Cara memperbaiki.
-
----
-
-## Verification
-
-Bagaimana memastikan fix berhasil.
-
----
-
-## References
-
-OWASP
-
-RFC JWT
-
-PortSwigger
-
----
-
-## Lessons Learned
-
-Apa yang kamu pelajari.
+```http
+[Paste raw request dari Burp Suite / terminal di sini. Sorot/tandai bagian payload-nya jika perlu]
+```
