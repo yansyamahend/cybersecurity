@@ -75,7 +75,7 @@ Locate the JWT stored inside the `token` cookie.
 Example:
 
 ```text
-token=<JWT>
+token= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6InVzZXJAZ21haWwuY29tIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE3ODU4Mjc1NDR9.Brxnnz5tXtOTEgJuKRy8x5z7rAqNvbxm1pLwfU1q3Mg
 ```
 
 ---
