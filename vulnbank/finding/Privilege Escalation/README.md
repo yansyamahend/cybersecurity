@@ -1,5 +1,10 @@
 # 🔓 Improper Verification of JWT Signature (Privilege Escalation)
 
+- **Vulnerability Type:** CWE-347 – Improper Verification of Cryptographic
+- **Target / Platform:** `vulnbank.org`
+- **Severity / CVSS:** Critical
+- **Affected Endpoint:** `GET /dashboard`
+
 ## 📌 Summary
 
 | Field        | Value                                                      |
