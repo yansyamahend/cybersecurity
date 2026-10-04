@@ -61,12 +61,12 @@ Consequences include:
 
 4. Save the bio. 
 
-![Payload Injection](1.png)
+![Payload Injection](payload.png)
 
 5. Wait for the administrator to view the profile.
 6. Check the `webhook.site` dashboard. The admin's browser will trigger the `onerror` payload and send an HTTP GET request containing the JWT.
 
-![Captured Token](2.png)
+![Captured Token](webhook.png)
 
 7. Replace your current local JWT with the stolen admin JWT to hijack the session.
 

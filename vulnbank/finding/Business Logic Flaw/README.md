@@ -1,9 +1,9 @@
 # Business Logic Flaw: Negative Transfer Amount Leads to Balance Manipulation
 
-* **Vulnerability Type:** CWE-840 — Business Logic Errors
-* **Target / Platform:** `vulnbank.org`
-* **Severity / CVSS:** Critical
-* **Affected Endpoint:** `POST /transfer`
+- **Vulnerability Type:** CWE-840 — Business Logic Errors
+- **Target / Platform:** `vulnbank.org`
+- **Severity / CVSS:** Critical
+- **Affected Endpoint:** `POST /transfer`
 
 ---
 
@@ -31,11 +31,11 @@ A successful attacker can generate balance by repeatedly submitting negative tra
 
 Potential consequences include:
 
-* Unauthorized balance inflation
-* Manipulation of account records
-* Fraudulent transfers
-* Distortion of transaction history
-* Loss of trust in platform accounting
+- Unauthorized balance inflation
+- Manipulation of account records
+- Fraudulent transfers
+- Distortion of transaction history
+- Loss of trust in platform accounting
 
 In a real banking or wallet environment, this issue would be severe because it directly affects the correctness of financial state.
 
@@ -47,9 +47,9 @@ In a real banking or wallet environment, this issue would be severe because it d
 
 When a user transfers money:
 
-* the sender's balance should decrease
-* the recipient's balance should increase
-* negative transfer amounts should be rejected
+- the sender's balance should decrease
+- the recipient's balance should increase
+- negative transfer amounts should be rejected
 
 ### Actual Behavior
 
@@ -157,10 +157,10 @@ Because negative values are accepted, the backend applies the transfer logic inc
 
 ## ✅ Evidence
 
-* Negative transfer amounts are accepted by the server.
-* The response returns `status: success` instead of rejecting the request.
-* The `new_balance` increases after submitting a negative transfer.
-* The transfer logic still processes arbitrary recipient values.
+- Negative transfer amounts are accepted by the server.
+- The response returns `status: success` instead of rejecting the request.
+- The `new_balance` increases after submitting a negative transfer.
+- The transfer logic still processes arbitrary recipient values.
 
 ---
 
@@ -192,20 +192,20 @@ Balance manipulation / infinite fund generation
 
 ## 🛡️ Remediation
 
-* Reject negative transfer amounts at the server side.
-* Enforce strict numeric validation on the `amount` field.
-* Require `amount > 0` before processing any transaction.
-* Validate that `to_account` is a real and authorized recipient.
-* Add server-side business logic checks, not only frontend validation.
-* Log and alert on suspicious transfer patterns such as repeated negative transfers.
+- Reject negative transfer amounts at the server side.
+- Enforce strict numeric validation on the `amount` field.
+- Require `amount > 0` before processing any transaction.
+- Validate that `to_account` is a real and authorized recipient.
+- Add server-side business logic checks, not only frontend validation.
+- Log and alert on suspicious transfer patterns such as repeated negative transfers.
 
 ---
 
 ## 📚 References
 
-* CWE-840 — Business Logic Errors
-* OWASP Top 10 — Security Misconfiguration / Business Logic Flaws
-* OWASP API Security Top 10 — Unrestricted Resource Consumption / Broken Business Logic
+- CWE-840 — Business Logic Errors
+- OWASP Top 10 — Security Misconfiguration / Business Logic Flaws
+- OWASP API Security Top 10 — Unrestricted Resource Consumption / Broken Business Logic
 
 ---
 
