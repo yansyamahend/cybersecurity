@@ -103,8 +103,8 @@ token= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6InVz
 
 ```json
 {
-  "user_id": 1,
-  "username": "admin",
+  "user_id": 5,
+  "username": "user@gmail.com",
   "is_admin": true
 }
 ```
