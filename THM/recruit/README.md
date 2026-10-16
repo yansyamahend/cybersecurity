@@ -88,7 +88,8 @@ Perhatikan hasil yang berkaitan dengan `/mail/`, `api.php`, dan `file.php`. Hasi
 
 **Mengapa tahap ini penting?** Halaman utama hanya menunjukkan bagian aplikasi yang ingin diperlihatkan developer. File log, endpoint API, atau fitur internal bisa saja ada tetapi tidak ditautkan dengan jelas.
 
-**Screenshot yang disarankan:** `screenshots/01-room-target.png` dan `screenshots/02-enumeration.png`.
+**Screenshot yang disarankan:** ![Target Room](THM/recruit/screenshots/01-room-target.png)
+dan `screenshots/02-enumeration.png`.
 
 ## 2. Membaca Informasi dari `mail.log`
 
