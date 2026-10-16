@@ -89,7 +89,8 @@ Perhatikan hasil yang berkaitan dengan `/mail/`, `api.php`, dan `file.php`. Hasi
 **Mengapa tahap ini penting?** Halaman utama hanya menunjukkan bagian aplikasi yang ingin diperlihatkan developer. File log, endpoint API, atau fitur internal bisa saja ada tetapi tidak ditautkan dengan jelas.
 
 ![Target Room](screenshots/01-room-target.png)
-dan `screenshots/02-enumeration.png`.
+dan ![Target Room](screenshots/02-enumeration-nmap.png)
+![Target Room](02-enumeration-gobuster.png).
 
 ## 2. Membaca Informasi dari `mail.log`
 
@@ -111,7 +112,8 @@ Dalam challenge ini, log memberikan petunjuk tentang akun HR dan lokasi konfigur
 
 Log tersebut belum otomatis memberikan akses admin. Namun, log membantu mengarahkan pengujian ke file konfigurasi yang menyimpan kredensial HR.
 
-**Screenshot yang disarankan:** `screenshots/03-mail-log.png`. Pastikan teks yang menjadi petunjuk terbaca. Jika log memuat informasi sensitif lain, sensor bagian yang tidak diperlukan.
+![Target Room](screenshots/03-mail-log-2.png)
+![Target Room](screenshots/03-mail-log.png). Pastikan teks yang menjadi petunjuk terbaca. Jika log memuat informasi sensitif lain, sensor bagian yang tidak diperlukan.
 
 ## 3. Membaca `config.php` melalui `file.php`
 
