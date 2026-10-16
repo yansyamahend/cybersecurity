@@ -175,7 +175,7 @@ THM{LOGGED_IN_USER}
 
 Flag ini membuktikan bahwa akses sebagai HR berhasil diperoleh. Namun, akun HR bukan akun dengan hak tertinggi, jadi pengujian masih berlanjut.
 
-![Target Room](05-hr-dashboard-flag.png). Usahakan flag dan konteks dashboard terlihat dalam satu gambar. Untuk repositori publik, jangan sertakan cookie sesi aktif.
+![Target Room](screenshots/05-hr-dashboard-flag.png). Usahakan flag dan konteks dashboard terlihat dalam satu gambar. Untuk repositori publik, jangan sertakan cookie sesi aktif.
 
 ## 5. Menemukan SQL Injection
 
@@ -185,48 +185,74 @@ Di dashboard HR terdapat fitur pencarian kandidat dengan parameter GET bernama `
 http://IP_TARGET_AKTIF/dashboard.php?search=test
 ```
 
-Parameter adalah data yang dikirim dari browser ke aplikasi. Dalam kasus ini, aplikasi memakai input pencarian untuk mencari kandidat. Jika input dimasukkan langsung ke perintah SQL tanpa penanganan aman, input tersebut bisa mengubah logika query database. Kelemahan ini disebut **SQL Injection (SQLi)**.
+Parameter adalah data yang dikirim dari browser ke aplikasi. Dalam kasus ini, aplikasi menggunakan input `search` untuk mencari kandidat. Jika input dimasukkan langsung ke perintah SQL tanpa penanganan yang aman, input tersebut dapat mengubah logika query database. Kelemahan ini disebut **SQL Injection (SQLi)**.
 
-Setelah login sebagai HR, ambil nilai cookie sesi `PHPSESSID` dari browser untuk host target tersebut. Cookie adalah penanda sesi login; tanpa cookie yang valid, request otomatis bisa dianggap sebagai pengguna yang belum login.
+Setelah login sebagai HR, ambil nilai cookie sesi `PHPSESSID` dari browser untuk host target tersebut. Cookie ini digunakan untuk mempertahankan sesi login. Tanpa cookie yang valid, request dapat dianggap sebagai permintaan dari pengguna yang belum login.
 
-Kemudian, jalankan pengujian pada parameter `search`:
+Kemudian, jalankan pengujian pada parameter `search` menggunakan `sqlmap`:
 
 ```bash
 sqlmap \
-  -u "http://$TARGET/dashboard.php?search=test" \
+  -u "http://IP_TARGET_AKTIF/dashboard.php?search=test" \
   --cookie='PHPSESSID=GANTI_DENGAN_COOKIE_AKTIF' \
-  -p search \
   --dbs \
   --batch \
   --timeout=10 \
-  --retries=1
+  --retries=1 \
+  --level=5 \
+  --risk=3 \
+  --random-agent \
+  --tamper=space2comment
 ```
 
-Ganti `GANTI_DENGAN_COOKIE_AKTIF` dengan nilai cookie sesi HR yang masih berlaku.
+Ganti `IP_TARGET_AKTIF` dengan IP target lab yang aktif dan `GANTI_DENGAN_COOKIE_AKTIF` dengan cookie sesi HR yang masih berlaku.
 
 Arti opsi utama:
 
-- `-u`: URL yang diuji.
-- `--cookie`: mengirim cookie sesi HR agar request menggunakan sesi yang sudah login.
-- `-p search`: memfokuskan pengujian ke parameter `search`.
-- `--dbs`: meminta daftar database yang bisa diidentifikasi melalui titik injeksi.
-- `--batch`: menggunakan jawaban default untuk pertanyaan interaktif `sqlmap`.
-- `--timeout=10`: batas waktu tunggu respons per request.
+- `-u`: menentukan URL yang diuji.
+- `--cookie`: mengirim cookie sesi agar request menggunakan sesi HR yang sudah login.
+- `--dbs`: meminta daftar database yang dapat diidentifikasi oleh `sqlmap`.
+- `--batch`: menggunakan jawaban default untuk pertanyaan interaktif.
+- `--timeout=10`: menetapkan batas waktu tunggu respons selama 10 detik per request.
 - `--retries=1`: mencoba ulang request yang gagal satu kali.
+- `--level=5`: meningkatkan cakupan pengujian payload.
+- `--risk=3`: menggunakan tingkat risiko pengujian tertinggi yang tersedia pada opsi tersebut, sehingga perlu berhati-hati ketika menjalankannya di luar lab.
+- `--random-agent`: menggunakan nilai User-Agent yang dipilih secara acak.
+- `--tamper=space2comment`: menggunakan teknik tamper yang mengganti spasi dengan komentar SQL untuk mengubah bentuk payload yang dikirim.
 
-Hasil pengujian pada lab mengonfirmasi bahwa `search` rentan. `sqlmap` mendeteksi beberapa teknik, yaitu boolean-based blind, error-based, time-based blind, dan UNION query. Alat tersebut juga menemukan bahwa query memiliki empat kolom dan database backend adalah MySQL.
+### Hasil Pengujian
 
-Penjelasan sederhana untuk istilah tersebut:
+Berdasarkan hasil pengujian lab, `sqlmap` mengonfirmasi bahwa parameter GET `search` rentan terhadap SQL Injection. Meskipun pada tahap awal alat memberikan peringatan bahwa parameter tidak tampak dinamis, pengujian lanjutan berhasil menemukan titik injeksi.
 
-- **Boolean-based blind:** aplikasi memberi respons berbeda ketika kondisi SQL dibuat benar atau salah.
-- **Error-based:** pesan error database dapat membantu mengungkap informasi.
-- **Time-based blind:** perbedaan waktu respons digunakan untuk menyimpulkan hasil query.
-- **UNION query:** hasil query lain digabungkan ke hasil query asli jika struktur kolomnya sesuai.
+Terdapat empat teknik SQL Injection yang teridentifikasi:
 
-Kita tidak harus menghafal semua teknik ini untuk memahami inti challenge: input pencarian seharusnya diperlakukan sebagai teks, tetapi aplikasi membiarkannya memengaruhi query SQL.
+1. **Boolean-based blind** — aplikasi memberikan respons berbeda ketika kondisi logika SQL dibuat benar atau salah.
+2. **Error-based** — kesalahan yang melibatkan database dapat dimanfaatkan untuk memperoleh informasi tentang hasil query.
+3. **Time-based blind** — perbedaan waktu respons digunakan untuk menyimpulkan apakah kondisi SQL tertentu terpenuhi.
+4. **UNION query** — query tambahan digabungkan dengan hasil query asli jika jumlah dan tipe kolomnya sesuai.
+
+Pengujian UNION menunjukkan bahwa query memiliki **empat kolom**, sedangkan identifikasi backend menunjukkan bahwa database yang digunakan adalah **MySQL versi 5.1 atau lebih baru**, sesuai informasi yang dilaporkan oleh `sqlmap`.
+
+Setelah menemukan titik injeksi, opsi `--dbs` meminta daftar database yang dapat diidentifikasi. Hasil pengujian menemukan enam database:
+
+- `information_schema`
+- `mysql`
+- `performance_schema`
+- `phpmyadmin`
+- `recruit_db`
+- `sys`
+
+Database `recruit_db` patut diperhatikan karena namanya mengindikasikan kemungkinan kaitannya dengan data rekrutmen aplikasi. Namun, nama database saja belum membuktikan isi atau tingkat sensitivitas datanya.
+
+### Kesimpulan
+
+Pengujian membuktikan bahwa parameter pencarian `search` dapat memengaruhi logika query SQL. Kombinasi empat teknik injeksi yang terdeteksi, informasi empat kolom, serta keberhasilan mengidentifikasi nama database menunjukkan bahwa kelemahan ini bukan sekadar input pencarian yang tidak tervalidasi.
+
+Akar masalah yang perlu diperiksa pada sisi aplikasi adalah penggunaan input pengguna dalam query SQL tanpa penanganan yang aman. Perbaikan yang direkomendasikan adalah menggunakan **prepared statements dengan parameter terikat (parameterized queries)**, serta memastikan akun database hanya memiliki hak akses yang diperlukan.
 
 ![Target Room](screenshots/06-sqlmap-sqli-confirmed.png)
-Tampilkan baris `search is vulnerable`, DBMS MySQL, dan informasi empat kolom. Sensor cookie sesi jika terlihat.
+
+_Dokumentasikan baris `GET parameter 'search' is vulnerable`, empat teknik yang terdeteksi, informasi backend MySQL, empat kolom, serta hasil enumerasi database. Sensor cookie `PHPSESSID` jika terlihat pada screenshot._
 
 ## 6. Enumerasi Database
 
