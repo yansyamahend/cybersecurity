@@ -244,15 +244,9 @@ Setelah menemukan titik injeksi, opsi `--dbs` meminta daftar database yang dapat
 
 Database `recruit_db` patut diperhatikan karena namanya mengindikasikan kemungkinan kaitannya dengan data rekrutmen aplikasi. Namun, nama database saja belum membuktikan isi atau tingkat sensitivitas datanya.
 
-### Kesimpulan
-
-Pengujian membuktikan bahwa parameter pencarian `search` dapat memengaruhi logika query SQL. Kombinasi empat teknik injeksi yang terdeteksi, informasi empat kolom, serta keberhasilan mengidentifikasi nama database menunjukkan bahwa kelemahan ini bukan sekadar input pencarian yang tidak tervalidasi.
-
-Akar masalah yang perlu diperiksa pada sisi aplikasi adalah penggunaan input pengguna dalam query SQL tanpa penanganan yang aman. Perbaikan yang direkomendasikan adalah menggunakan **prepared statements dengan parameter terikat (parameterized queries)**, serta memastikan akun database hanya memiliki hak akses yang diperlukan.
-
 ![Target Room](screenshots/06-sqlmap-sqli-confirmed.png)
 
-_Dokumentasikan baris `GET parameter 'search' is vulnerable`, empat teknik yang terdeteksi, informasi backend MySQL, empat kolom, serta hasil enumerasi database. Sensor cookie `PHPSESSID` jika terlihat pada screenshot._
+\_Dokumentasikan baris `GET parameter 'search' is vulnerable`, empat teknik yang terdeteksi, informasi backend MySQL, empat kolom, serta hasil enumerasi database.
 
 ## 6. Enumerasi Database
 
@@ -304,7 +298,7 @@ Pada hasil lab, tabel `users` memiliki kolom:
 
 `--drop-set-cookie` mencegah `sqlmap` menerima perubahan cookie dari header `Set-Cookie` selama pengujian. Opsi ini dapat membantu ketika perubahan cookie mengganggu pengambilan data, tetapi **tidak** menggantikan kebutuhan akan cookie login yang valid.
 
-**Screenshot yang disarankan:** `screenshots/07-database-tables.png` untuk hasil tabel dan `screenshots/08-users-columns.png` untuk hasil kolom.
+![Target Room](screenshots/07-database-tables.png) untuk hasil tabel dan ![Target Room](screenshots/08-users-columns.png) untuk hasil kolom.
 
 ## 7. Mengambil Kredensial Admin
 
