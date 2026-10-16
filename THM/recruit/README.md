@@ -89,8 +89,8 @@ Perhatikan hasil yang berkaitan dengan `/mail/`, `api.php`, dan `file.php`. Hasi
 **Mengapa tahap ini penting?** Halaman utama hanya menunjukkan bagian aplikasi yang ingin diperlihatkan developer. File log, endpoint API, atau fitur internal bisa saja ada tetapi tidak ditautkan dengan jelas.
 
 ![Target Room](screenshots/01-room-target.png)
-dan ![Target Room](screenshots/02-enumeration-nmap.png)
-![Target Room](02-enumeration-gobuster.png).
+![Target Room](screenshots/02-enumeration-nmap.png)
+![Target Room](screenshots/02-enumeration-gobuster.png)
 
 ## 2. Membaca Informasi dari `mail.log`
 
