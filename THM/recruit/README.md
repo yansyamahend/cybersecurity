@@ -150,7 +150,7 @@ Arti opsi `curl`:
 - `-G` menempatkan data yang diberikan sebagai parameter URL GET.
 - `--data-urlencode` meng-encode nilai parameter agar aman dikirim dalam URL.
 
-**Screenshot yang disarankan:** `screenshots/04-config-file-read.png`. Tampilkan command dan bagian respons yang membuktikan isi konfigurasi terbaca. Jangan menampilkan cookie sesi pribadi di screenshot terminal.
+![Target Room](screenshots/04-config-file-read.png). Tampilkan command dan bagian respons yang membuktikan isi konfigurasi terbaca. Jangan menampilkan cookie sesi pribadi di screenshot terminal.
 
 ## 4. Login sebagai HR
 
@@ -175,7 +175,7 @@ THM{LOGGED_IN_USER}
 
 Flag ini membuktikan bahwa akses sebagai HR berhasil diperoleh. Namun, akun HR bukan akun dengan hak tertinggi, jadi pengujian masih berlanjut.
 
-**Screenshot yang disarankan:** `screenshots/05-hr-dashboard-flag.png`. Usahakan flag dan konteks dashboard terlihat dalam satu gambar. Untuk repositori publik, jangan sertakan cookie sesi aktif.
+![Target Room](05-hr-dashboard-flag.png). Usahakan flag dan konteks dashboard terlihat dalam satu gambar. Untuk repositori publik, jangan sertakan cookie sesi aktif.
 
 ## 5. Menemukan SQL Injection
 
@@ -225,7 +225,8 @@ Penjelasan sederhana untuk istilah tersebut:
 
 Kita tidak harus menghafal semua teknik ini untuk memahami inti challenge: input pencarian seharusnya diperlakukan sebagai teks, tetapi aplikasi membiarkannya memengaruhi query SQL.
 
-**Screenshot yang disarankan:** `screenshots/06-sqlmap-sqli-confirmed.png`. Tampilkan baris `search is vulnerable`, DBMS MySQL, dan informasi empat kolom. Sensor cookie sesi jika terlihat.
+![Target Room](screenshots/06-sqlmap-sqli-confirmed.png)
+Tampilkan baris `search is vulnerable`, DBMS MySQL, dan informasi empat kolom. Sensor cookie sesi jika terlihat.
 
 ## 6. Enumerasi Database
 
