@@ -328,7 +328,7 @@ Jika pengambilan data gagal atau muncul redirect `302` ke `index.php`, periksa k
 
 Jangan langsung menyimpulkan SQL Injection tidak ada jika proses dump gagal. Dalam percobaan ini, kerentanannya sudah terdeteksi; masalah pengambilan data bisa berkaitan dengan sesi atau cara hasil query dikembalikan.
 
-**Screenshot yang disarankan:** `screenshots/09-users-dump-redacted.png`. Untuk write-up publik, sensor password admin dan nilai sensitif lain pada tabel. Bukti bahwa baris `admin` ditemukan sudah cukup; jangan unggah cookie sesi aktif.
+![Target Room](screenshots/09-users-dump-redacted.png). Untuk write-up publik, sensor password admin dan nilai sensitif lain pada tabel. Bukti bahwa baris `admin` ditemukan sudah cukup; jangan unggah cookie sesi aktif.
 
 ## 8. Login sebagai Admin
 
@@ -342,7 +342,7 @@ THM{LOGGED_IN_ADM1N1}
 
 Dengan ini, kedua tujuan challenge selesai: akses sebagai HR dan akses sebagai admin. Simpan screenshot dashboard admin sebagai bukti penyelesaian.
 
-**Screenshot yang disarankan:** `screenshots/10-admin-dashboard-flag.png`. Pastikan flag terlihat jelas. Hindari menampilkan password admin atau cookie sesi pada screenshot.
+![Room Target](screenshots/10-admin-dashboard-flag.png). Pastikan flag terlihat jelas. Hindari menampilkan password admin atau cookie sesi pada screenshot.
 
 ## Ringkasan Attack Chain
 
